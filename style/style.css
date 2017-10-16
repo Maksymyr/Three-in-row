@@ -17,10 +17,62 @@ position:relative;
     background-size: cover;
     box-sizing:border-box;
 }
-
-
 #down-case{
 	text-align:center;
-
 }
-
+.anim-class-up {
+    animation: anim-up 0.8s;
+    animation-fill-mode: forwards;
+}
+.anim-class-down {
+    animation: anim-down 0.8s;
+    animation-fill-mode: forwards;
+}
+.anim-class-left {
+    animation: anim-left 0.8s;
+    animation-fill-mode: forwards;
+}
+.anim-class-right {
+    animation: anim-right 0.8s;
+    animation-fill-mode: forwards;
+}
+@keyframes anim-up {
+    0% {
+        /*opacity: 1;*/
+        transform: translateY(0px);
+    }
+    100% {
+        /*opacity: 0.8;*/
+        transform: translateY(-50px);
+    }
+}
+@keyframes anim-down {
+    0% {
+        /*opacity: 1;*/
+        transform: translateY(0px);
+    }
+    100% {
+        /*opacity: 0.8;*/
+        transform: translateY(50px);
+    }
+}
+@keyframes anim-left {
+    0% {
+        /*opacity: 1;*/
+        transform: translateX(0px);
+    }
+    100% {
+        /*opacity: 0.8;*/
+        transform: translateX(-50px);
+    }
+}
+@keyframes anim-right {
+    0% {
+        /*opacity: 1;*/
+        transform: translateX(0px);
+    }
+    100% {
+        /*opacity: 0.8;*/
+        transform: translateX(50px);
+    }
+}
