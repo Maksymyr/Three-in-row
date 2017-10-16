@@ -1,4 +1,3 @@
-$(function () {
 	// var color=['images/paladin.png','images/rogue.png','images/mage.png','images/shaman.png','images/warrior.png','images/druid.png'];
 	var color=['red','blue','green','yellow','orange','violet'];
 	
@@ -212,16 +211,29 @@ $(function () {
 			var type_check_col = null;
 			var count_check_col = 0;
 			var array_check_col = [];
-			for (var i = 0; i < 7; i++) {
-				if ($(".row"+j).eq(i).children(0).attr("type") == $(".row"+j).eq(i + 1).children(0).attr("type")) {
+			for (var i = 0; i < 6; i++) {
+				if (document.getElementsByClassName("row"+j)[i].firstChild.getAttribute("type") ===
+					document.getElementsByClassName("row"+j)[i+1].firstChild.getAttribute("type")) {
 					count_check_row++;
 					array_check_row.push(i);
-					type_check_row = $(".row"+j).eq(i).children(0).attr("type");
+					type_check_row = document.getElementsByClassName("row"+j)[i].firstChild.getAttribute("type");
+					if (i===5) {
+						if (count_check_row >= 2) {
+							DestroyThreeRow(count_check_row+1, array_check_row, j);
+							ScoreCount(count_check_row+1);
+							count_check_row = 0;
+							array_check_row = [];
+							return true;
+						}
+						else {
+							count_check_row = 0;
+							array_check_row = [];
+						}
+					}
 				}
 				else {
 					if (count_check_row >= 2) {
 						DestroyThreeRow(count_check_row+1, array_check_row, j);
-						// console.log("type :" + color[type_check_row] + " ,quantity = " + count_check_row + " ,indexes: " + array_check_row + " ,row #" + j);
 						ScoreCount(count_check_row+1);
 						count_check_row = 0;
 						array_check_row = [];
@@ -232,15 +244,28 @@ $(function () {
 						array_check_row = [];
 					}
 				}
-				if ($(".col"+j).eq(i).children(0).attr("type") == $(".col"+j).eq(i + 1).children(0).attr("type")) {
+				if (document.getElementsByClassName("col"+j)[i].firstChild.getAttribute("type") ===
+					document.getElementsByClassName("col"+j)[i + 1].firstChild.getAttribute("type")) {
 					count_check_col++;
 					array_check_col.push(i);
-					type_check_col = $(".col"+j).eq(i).children(0).attr("type");
+					type_check_col = document.getElementsByClassName("col"+j)[i].firstChild.getAttribute("type");
+					if (i===5) {
+						if (count_check_col >= 2) {
+							DestroyThreeCol(count_check_col+1, array_check_col, j);
+							ScoreCount(count_check_col+1);
+							count_check_col = 0;
+							array_check_col = [];
+							return true;
+						}
+						else {
+							count_check_col = 0;
+							array_check_col = [];
+						}
+					}
 				}
 				else {
 					if (count_check_col >= 2) {
 						DestroyThreeCol(count_check_col+1, array_check_col, j);
-						// console.log("type :" + color[type_check_row] + " ,quantity = " + count_check_row + " ,indexes: " + array_check_row + " ,row #" + j);
 						ScoreCount(count_check_col+1);
 						count_check_col = 0;
 						array_check_col = [];
@@ -266,7 +291,7 @@ $(function () {
 			document.getElementsByClassName("row1")[index_st+i].firstChild.setAttribute("type", newTypeRand);
 			document.getElementsByClassName("row1")[index_st+i].firstChild.style.backgroundColor = color[newTypeRand];
 		}
-		CheckThree();
+		setTimeout(CheckThree(),1000);
 	}
 	function DestroyThreeCol(count, array, col) {
 		var index_st = array[1]+2;
@@ -283,7 +308,7 @@ $(function () {
 					}
 				}
 		
-		CheckThree()
+		setTimeout(CheckThree(),1000);
 	}
 	function ScoreCount(count) {
 		switch (count) {
@@ -293,7 +318,5 @@ $(function () {
 			case 6: score+=1000; break;
 			case 7: score+=5000; break
 		}
-		console.log(score);
 		score_box.value = score;
 	}
-});
